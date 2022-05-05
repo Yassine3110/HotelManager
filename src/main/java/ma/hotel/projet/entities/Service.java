@@ -7,28 +7,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "chambre")
-public class Room {
+@Table(name = "client")
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer number;
-    private Integer floor;
-    private Boolean availability;
-    private String phoneNumber;
+    private String name;
+    private String description;
     private Double price;
+
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "reservation_id")
+    @JoinColumn(name = "service_id",nullable = false)
     @JsonBackReference
     private Reservation reservation;
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JsonManagedReference
-    private Type type;
+
+
 
 }

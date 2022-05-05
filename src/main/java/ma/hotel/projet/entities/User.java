@@ -19,6 +19,7 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String userName;
     private String password;
     @ManyToMany
@@ -27,7 +28,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+
     @OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
     @JsonManagedReference
     private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    @JsonManagedReference
+    private List<Client> clients;
 }

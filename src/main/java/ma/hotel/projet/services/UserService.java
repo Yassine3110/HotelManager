@@ -26,7 +26,5 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public String hi(){
-        return "hi";
-    }
+
 }

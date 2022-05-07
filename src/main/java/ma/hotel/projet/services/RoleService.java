@@ -1,12 +1,13 @@
 package ma.hotel.projet.services;
 
-import lombok.RequiredArgsConstructor;
 import ma.hotel.projet.entities.Role;
 import ma.hotel.projet.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service @RequiredArgsConstructor
+import javax.transaction.Transactional;
+
+@Service @Transactional
 public class RoleService {
     @Autowired
     private RoleRepository roleRepository;

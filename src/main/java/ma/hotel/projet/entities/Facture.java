@@ -18,7 +18,7 @@ public class Facture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Double totalPrice;
+    private Double totalPrice=0.0;
 
     @OneToOne(mappedBy = "facture")
     private Reservation reservation;

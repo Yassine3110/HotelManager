@@ -33,11 +33,12 @@ public class Reservation {
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "id_client",nullable = false)
+    @JoinColumn(name = "client_id",nullable = false)
     @JsonBackReference
     private Client client;
 
     @OneToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "facture_id")
     private Facture facture;
 
 
@@ -48,6 +49,9 @@ public class Reservation {
             inverseJoinColumns = @JoinColumn(name = "reservation_id"))
     private List<Service> services;
 
+    public void addServiceToReservation(Service service){
+        this.getServices().add(service);
+    }
 
 
 

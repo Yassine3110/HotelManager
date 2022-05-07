@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+
+
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -32,6 +32,9 @@ public class HotelApplication implements CommandLineRunner{
 	private final ServiceService service;
 	@Autowired
 	private final RoleService roleService;
+
+	@Autowired
+	private final FactureService factureService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HotelApplication.class, args);
@@ -56,6 +59,15 @@ public class HotelApplication implements CommandLineRunner{
 		r1.setAvailability(true);
 		roomService.saveRoom(r1);
 
+		Room r2=new Room();
+		r2.setType(t1);
+		r2.setPhoneNumber("+2126345555552");
+		r2.setPrice(3500.0);
+		r2.setNumber(150);
+		r2.setFloor(12);
+		r2.setAvailability(true);
+		roomService.saveRoom(r2);
+
 		Role ro1=new Role();
 		ro1.setName("ADMIN");
 		roleService.saveRole(ro1);
@@ -64,17 +76,43 @@ public class HotelApplication implements CommandLineRunner{
 		ro2.setName("RECEPTIONNISTE");
 		roleService.saveRole(ro2);
 
+		Role ro3=new Role();
+		ro3.setName("NORMAL");
+		roleService.saveRole(ro3);
+
 
 		User u1=new User();
 		u1.setRole(ro1);
 		u1.setUserName("yass12");
-		u1.setPassword("hihi");
+		u1.setPassword("hihuii");
 		u1.setFirstName("yassine");
 		u1.setLastName("elh");
 		userService.saveUser(u1);
 
 		Client c1=new Client(null,"hamid","serdin","marocain","AS3466","+212754637281","hamid@gmail.com",false,new ArrayList<Reservation>(),u1);
 		clientService.saveClient(c1);
+
+
+
+		Service service1=new Service(null,"Spa","ra7a",1000.,new ArrayList<>());
+		service.addService(service1);
+
+		Reservation reservation=new Reservation(null,LocalDate.of(2022,8,13),LocalTime.of(10,00),10,u1,r1,c1,new Facture(),new ArrayList<Service>());
+		reservationService.saveReservation(reservation);
+
+		reservationService.addService(reservation,service1);
+
+
+		reservationService.updateFactureReservation(reservation);
+
+
+
+
+
+		//reservationService.calculPt(reservation);
+
+
+
 
 	}
 }

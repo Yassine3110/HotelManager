@@ -1,10 +1,7 @@
 package ma.hotel.projet.services;
 
-import lombok.RequiredArgsConstructor;
-import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.entities.Role;
 import ma.hotel.projet.entities.User;
-import ma.hotel.projet.repositories.RoleRepository;
 import ma.hotel.projet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-//@RequiredArgsConstructor
 @Transactional
 public class UserService {
     @Autowired
@@ -33,8 +29,8 @@ public class UserService {
 
 
     public void assignRoleToUser(User user,Role role){
-        User u=userRepository.findById(user.getId()).get();
-        u.setRole(role);
+        if(userRepository.findById(user.getId()).isPresent())
+            user.setRole(role);
         //userRepository.save(user); ==> transactional ;)
     }
 

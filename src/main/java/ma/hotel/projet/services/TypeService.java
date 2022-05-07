@@ -1,16 +1,14 @@
 package ma.hotel.projet.services;
 
-import lombok.RequiredArgsConstructor;
 import ma.hotel.projet.entities.Type;
 import ma.hotel.projet.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.xml.validation.TypeInfoProvider;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
 public class TypeService {
     @Autowired
     private TypeRepository typeRepository;

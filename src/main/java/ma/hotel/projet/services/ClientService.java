@@ -1,13 +1,14 @@
 package ma.hotel.projet.services;
 
-import lombok.RequiredArgsConstructor;
 import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
-@RequiredArgsConstructor
+@Transactional
 public class ClientService {
     @Autowired
     private ClientRepository clientRepository;

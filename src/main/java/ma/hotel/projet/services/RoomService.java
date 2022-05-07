@@ -1,7 +1,6 @@
 package ma.hotel.projet.services;
 
 
-import lombok.RequiredArgsConstructor;
 import ma.hotel.projet.entities.Room;
 import ma.hotel.projet.entities.Type;
 import ma.hotel.projet.repositories.RoomRepository;
@@ -12,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
 public class RoomService {
     @Autowired
     private RoomRepository roomRepository;

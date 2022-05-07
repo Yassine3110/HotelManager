@@ -6,13 +6,11 @@ import ma.hotel.projet.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ClientService {
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     public Client saveClient(Client client){
         return clientRepository.save(client);
@@ -26,6 +24,7 @@ public class ClientService {
     public void deleteClient(Client client){
         clientRepository.delete(client);
     }
+
 
 
 }

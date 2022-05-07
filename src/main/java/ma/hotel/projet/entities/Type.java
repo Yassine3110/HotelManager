@@ -1,5 +1,6 @@
 package ma.hotel.projet.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +22,11 @@ public class Type {
     private String description;
     private Integer numberOfBeds;
     private Integer numberOfpersons;
-    @OneToMany(mappedBy = "type",cascade=CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+
+    //rooms
+    @OneToMany(mappedBy = "type",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Room> rooms;
 
-    public void addRoom(Room room){
-        this.rooms.add(room);
-    }
+
 }

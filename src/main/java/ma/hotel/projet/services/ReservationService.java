@@ -1,26 +1,30 @@
 package ma.hotel.projet.services;
 
 import lombok.RequiredArgsConstructor;
+import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.entities.Reservation;
 import ma.hotel.projet.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.stream.Location;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
     @Autowired
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
     public Reservation saveReservation(Reservation reservation){
         return reservationRepository.save(reservation);
     }
-    public Reservation findById(Integer id){
-        return reservationRepository.findById(id).get();
+    public Optional<Reservation> findById(Integer id){
+        Optional<Reservation> reservation=reservationRepository.findById(id);
+        if(reservation.isPresent()) return reservation;
+        return null;
     }
     public List<Reservation> findReservationsByDate(LocalDate date){
         return reservationRepository.findByDate(date);
@@ -36,4 +40,10 @@ public class ReservationService {
         reservationRepository.delete(reservation);
     }
 
+    public List<Reservation> findReservationsByClient(Client client){
+        return reservationRepository.findByClient(client);
+    }
+    public List<Reservation> findReservationByDureeDeSejour(Integer duree){
+        return reservationRepository.findByDureeSejour(duree);
+    }
 }

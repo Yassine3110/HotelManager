@@ -27,13 +27,14 @@ public class Client {
     private String phoneNumber;
     @Column(unique = true)
     private String email;
-    private Boolean fidelity;
-    @OneToMany(mappedBy = "client",cascade=CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    private Boolean fidelity=false;
+    @OneToMany(mappedBy = "client",cascade=CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
     @JsonManagedReference
     private List<Reservation> reservations;
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "user_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
+
 }

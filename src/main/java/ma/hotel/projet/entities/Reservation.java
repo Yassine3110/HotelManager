@@ -1,7 +1,6 @@
 package ma.hotel.projet.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "reser")
+@Table(name = "reservation")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private LocalDate reservationDate;
-    private LocalTime reservationHour;
+    private LocalDate date;
+    private LocalTime time;
     private Integer dureeSejour;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
@@ -29,21 +28,27 @@ public class Reservation {
     @JsonBackReference
     private User user;
 
-    @OneToMany(mappedBy = "reservation",cascade=CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
-    @JsonManagedReference
-    private List<Room> rooms;
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    //@JsonManagedReference
+    private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_client",nullable = false)
     @JsonBackReference
     private Client client;
 
-    @OneToOne
-    @JoinColumn(name = "facture_id")
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL,optional = false)
     private Facture facture;
 
-    @OneToMany(mappedBy = "reservation")
-    @JsonManagedReference
+
+    @ManyToMany
+    @JoinTable(
+            name = "service_reservation",
+            joinColumns = @JoinColumn(name = "service_id"),
+            inverseJoinColumns = @JoinColumn(name = "reservation_id"))
     private List<Service> services;
+
+
 
 
 

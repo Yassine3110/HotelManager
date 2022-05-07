@@ -20,9 +20,11 @@ public class Facture {
     private Integer id;
     private Double totalPrice;
 
-
-    @OneToOne
-    @JoinColumn(name = "reservation_id")
-    //@JsonManagedReference
+    @OneToOne(mappedBy = "facture")
     private Reservation reservation;
+
+    //@OneToOne(cascade = CascadeType.ALL, optional = false)
+    //@MapsId
+    //@JsonManagedReference
+    //private Reservation reservation;
 }

@@ -6,13 +6,14 @@ import ma.hotel.projet.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.validation.TypeInfoProvider;
 
 @Service
 @RequiredArgsConstructor
 public class TypeService {
     @Autowired
-    TypeRepository typeRepository;
+    private TypeRepository typeRepository;
     public Type saveType(Type type){
         return typeRepository.save(type);
     }

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "client")
+@Table(name = "service")
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,11 +22,8 @@ public class Service {
     private String description;
     private Double price;
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "service_id",nullable = false)
-    @JsonBackReference
-    private Reservation reservation;
-
+    @ManyToMany(mappedBy = "services")
+    private List<Reservation> reservations;
 
 
 

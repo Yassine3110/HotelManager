@@ -19,16 +19,15 @@ public class Room {
     private Integer id;
     private Integer number;
     private Integer floor;
-    private Boolean availability;
+    private Boolean availability=true;
     private String phoneNumber;
     private Double price;
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "reservation_id")
+    //reservation
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "type_id")
     @JsonBackReference
-    private Reservation reservation;
-
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JsonManagedReference
+    //@MapsId
     private Type type;
+
 
 }

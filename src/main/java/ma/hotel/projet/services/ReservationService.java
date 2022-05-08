@@ -23,12 +23,27 @@ public class ReservationService {
 
     @Autowired
     private FactureService factureService;
+
+    public List<Reservation> findAll(){
+        return reservationRepository.findAll();
+    }
     public Reservation saveReservation(Reservation reservation){
         return reservationRepository.save(reservation);
     }
     public Reservation findById(Integer id){
         Reservation reservation=reservationRepository.findById(id).get();
         return reservation;
+    }
+    public void DeleteReservation(Reservation reservation){
+        reservationRepository.delete(reservation);
+    }
+
+    public List<Reservation> findReservationByUser(Reservation reservation){
+        return reservationRepository.findByUser(reservation.getUser());
+    }
+
+    public List<Reservation> findReservationByFacture(Reservation reservation){
+        return reservationRepository.findByFacture(reservation);
     }
     public List<Reservation> findReservationsByDate(LocalDate date){
         return reservationRepository.findByDate(date);
@@ -37,11 +52,8 @@ public class ReservationService {
     public List<Reservation> findReservationsByDateAndTimeBetween(LocalDate date, LocalTime timeStart, LocalTime timeEnd){
         return reservationRepository.findByDateAndTimeBetween(date,timeStart,timeEnd);
     }
-    public List<Reservation> findReservationsByDateAndTime(LocalDate date, LocalTime time){
-        return reservationRepository.findByDateAndTime(date,time);
-    }
-    public void DeleteReservation(Reservation reservation){
-        reservationRepository.delete(reservation);
+    public List<Reservation> findReservationsByDateAndTime(LocalDate date, LocalTime time) {
+        return reservationRepository.findByDateAndTime(date, time);
     }
 
     public List<Reservation> findReservationsByClient(Client client){

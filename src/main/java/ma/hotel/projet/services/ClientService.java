@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -13,6 +14,9 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
+    public List<Client> findAll(){
+        return clientRepository.findAll();
+    }
     public Client saveClient(Client client){
         return clientRepository.save(client);
     }
@@ -25,6 +29,7 @@ public class ClientService {
     public void deleteClient(Client client){
         clientRepository.delete(client);
     }
+
 
 
 

@@ -29,7 +29,7 @@ public class Client implements Serializable {
     @Column(unique = true)
     private String email;
     private Boolean fidelity=false;
-    @OneToMany(mappedBy = "client",cascade=CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "client",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonManagedReference
     @JsonIgnore
     private List<Reservation> reservations;

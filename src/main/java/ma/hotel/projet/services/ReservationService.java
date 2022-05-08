@@ -34,8 +34,11 @@ public class ReservationService {
         Reservation reservation=reservationRepository.findById(id).get();
         return reservation;
     }
-    public void DeleteReservation(Reservation reservation){
+    public void deleteReservation(Reservation reservation){
         reservationRepository.delete(reservation);
+    }
+    public void deleteReservations(List<Reservation> reservations){
+        reservationRepository.deleteAll(reservations);
     }
 
     public List<Reservation> findReservationByUser(Reservation reservation){

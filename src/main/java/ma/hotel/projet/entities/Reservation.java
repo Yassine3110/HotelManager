@@ -1,11 +1,15 @@
 package ma.hotel.projet.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -15,7 +19,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "reservation")
-public class Reservation {
+public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -28,8 +32,9 @@ public class Reservation {
     @JsonBackReference
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    //@JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "room_id")
+    @JsonBackReference
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)

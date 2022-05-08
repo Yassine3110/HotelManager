@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 //@RequiredArgsConstructor
 @RequestMapping("api")
@@ -42,6 +44,18 @@ public class UserController {
     public ResponseEntity<Role> findRoleById(@PathVariable("idRole") Integer idRole){
         Role r=roleService.findRoleById(idRole);
         return new ResponseEntity<>(r,HttpStatus.OK);
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<List<Role>> findAllRoles(){
+        List<Role> roles=roleService.findAll();
+        return new ResponseEntity<>(roles,HttpStatus.OK);
+    }
+
+    @GetMapping("user/all")
+    public ResponseEntity<List<User>> Users(){
+        List<User> users=userService.findAll();
+        return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
 }

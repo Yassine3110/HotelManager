@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 @EqualsAndHashCode
-public class User {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -26,18 +27,22 @@ public class User {
     @Column(unique = true)
     private String userName;
     private String password;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JsonBackReference
-    @JoinColumn(name = "role_id",nullable = false)
-    private Role role;
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
-    @JsonManagedReference
-    private List<Reservation> reservations;
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,orphanRemoval = true)
     @JsonManagedReference
     @JsonIgnore
-    private List<Client> clients;
+    private List<Reservation> reservations;
+
+
+
+    public void assignRole(Role role){
+        this.getRoles().add(role);
+    }
 
 }

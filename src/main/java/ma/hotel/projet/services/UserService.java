@@ -1,5 +1,6 @@
 package ma.hotel.projet.services;
 
+import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.entities.Role;
 import ma.hotel.projet.entities.User;
 import ma.hotel.projet.repositories.UserRepository;
@@ -7,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
 
     public User saveUser(User user){
         return userRepository.save(user);
@@ -29,10 +35,11 @@ public class UserService {
 
 
     public void assignRoleToUser(User user,Role role){
-        if(userRepository.findById(user.getId()).isPresent())
-            user.setRole(role);
+        User u=userRepository.findById(user.getId()).get();
+        u.assignRole(role);
         //userRepository.save(user); ==> transactional ;)
     }
+
 
 
 }

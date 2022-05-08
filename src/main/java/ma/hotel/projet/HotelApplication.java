@@ -82,19 +82,22 @@ public class HotelApplication implements CommandLineRunner{
 
 
 		User u1=new User();
-		u1.setRole(ro1);
 		u1.setUserName("yass12");
 		u1.setPassword("hihuii");
 		u1.setFirstName("yassine");
 		u1.setLastName("elh");
 		userService.saveUser(u1);
 
-		Client c1=new Client(null,"hamid","serdin","marocain","AS3466","+212754637281","hamid@gmail.com",false,new ArrayList<Reservation>(),u1);
+		userService.assignRoleToUser(u1,ro2);
+
+		Client c1=new Client(null,"hamid","serdin","marocain","AS3466","+212754637281","hamid@gmail.com",false,new ArrayList<Reservation>());
 		clientService.saveClient(c1);
 
 
 
+
 		Service service1=new Service(null,"Spa","ra7a",1000.,new ArrayList<>());
+
 		service.addService(service1);
 
 		Reservation reservation=new Reservation(null,LocalDate.of(2022,8,13),LocalTime.of(10,00),10,u1,r1,c1,new Facture(),new ArrayList<Service>());
@@ -108,8 +111,6 @@ public class HotelApplication implements CommandLineRunner{
 
 
 
-
-		//reservationService.calculPt(reservation);
 
 
 

@@ -1,19 +1,22 @@
 package ma.hotel.projet.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
 @Table(name = "chambre")
-public class Room {
+public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -28,6 +31,11 @@ public class Room {
     @JsonBackReference
     //@MapsId
     private Type type;
+
+    @OneToMany(mappedBy = "room")
+    @JsonManagedReference
+    @JsonIgnore
+    private List<Reservation> reservations;
 
 
 }

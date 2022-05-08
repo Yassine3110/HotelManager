@@ -26,10 +26,9 @@ public class ReservationService {
     public Reservation saveReservation(Reservation reservation){
         return reservationRepository.save(reservation);
     }
-    public Optional<Reservation> findById(Integer id){
-        Optional<Reservation> reservation=reservationRepository.findById(id);
-        if(reservation.isPresent()) return reservation;
-        return null;
+    public Reservation findById(Integer id){
+        Reservation reservation=reservationRepository.findById(id).get();
+        return reservation;
     }
     public List<Reservation> findReservationsByDate(LocalDate date){
         return reservationRepository.findByDate(date);

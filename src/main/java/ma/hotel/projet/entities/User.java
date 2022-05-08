@@ -42,7 +42,8 @@ public class User implements Serializable{
 
 
     public void assignRole(Role role){
-        this.getRoles().add(role);
+        if(!(this.getRoles().contains(role)))
+            this.getRoles().add(role);
     }
 
 }

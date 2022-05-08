@@ -88,10 +88,19 @@ public class HotelApplication implements CommandLineRunner{
 		u1.setLastName("elh");
 		userService.saveUser(u1);
 
+		User u2=new User();
+		u2.setUserName("aka33");
+		u2.setPassword("swsw");
+		u2.setFirstName("frfec");
+		u2.setLastName("xsxsx");
+		userService.saveUser(u2);
+
 		userService.assignRoleToUser(u1,ro2);
 
 		Client c1=new Client(null,"hamid","serdin","marocain","AS3466","+212754637281","hamid@gmail.com",false,new ArrayList<Reservation>());
+		Client c2=new Client(null,"manal","breit","marocaine","AS3166","+212432222281","manal@gmail.com",false,new ArrayList<Reservation>());
 		clientService.saveClient(c1);
+		clientService.saveClient(c2);
 
 
 

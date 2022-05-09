@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,10 @@ public class UserController {
     RoleService roleService;
 
 
+    @GetMapping("{id}/user")
+    public ResponseEntity<User> findUserById(@PathVariable Integer id){
+        return new ResponseEntity<>(userService.findById(id),HttpStatus.OK);
+    }
 
     @PostMapping("role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){
@@ -46,7 +51,7 @@ public class UserController {
         return new ResponseEntity<>(r,HttpStatus.OK);
     }
 
-    @GetMapping("all")
+    @GetMapping("role/all")
     public ResponseEntity<List<Role>> findAllRoles(){
         List<Role> roles=roleService.findAll();
         return new ResponseEntity<>(roles,HttpStatus.OK);

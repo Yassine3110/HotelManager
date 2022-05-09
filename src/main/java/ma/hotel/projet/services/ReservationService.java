@@ -70,6 +70,8 @@ public class ReservationService {
         Reservation r=reservationRepository.findById(reservation.getId()).get();
         r.addServiceToReservation(service);
     }
+
+
     public Double calculPt(Reservation reservation){
         Pt=0.;
         Reservation r=reservationRepository.findById(reservation.getId()).get();

@@ -22,7 +22,7 @@ public class ServiceService {
     public ma.hotel.projet.entities.Service findServiceById(Integer id){
         return serviceRepository.findById(id).get();
     }
-    public void deleteServicec(ma.hotel.projet.entities.Service service){
+    public void deleteService(ma.hotel.projet.entities.Service service){
         serviceRepository.delete(service);
     }
 }

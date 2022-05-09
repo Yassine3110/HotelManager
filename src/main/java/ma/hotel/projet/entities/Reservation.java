@@ -1,6 +1,7 @@
 package ma.hotel.projet.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,8 @@ public class Reservation implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "room_id")
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)

@@ -29,10 +29,14 @@ public class Client implements Serializable {
     @Column(unique = true)
     private String email;
     private Boolean fidelity=false;
-    @OneToMany(mappedBy = "client",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "client",cascade=CascadeType.ALL)
+    //@JsonManagedReference
     @JsonIgnore
     private List<Reservation> reservations;
+
+    public void addReservationToClient(Reservation reservation){
+        this.getReservations().add(reservation);
+    }
 
 
 }

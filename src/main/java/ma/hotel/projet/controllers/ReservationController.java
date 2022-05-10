@@ -35,6 +35,11 @@ public class ReservationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("update")
+    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation){
+        return new ResponseEntity<>(reservationService.saveReservation((reservation)),HttpStatus.OK);
+    }
+
 
 
 

@@ -29,9 +29,14 @@ public class ClientController {
         return new ResponseEntity<>(clientService.saveClient(client),HttpStatus.CREATED);
     }
 
-    @PutMapping("update")
-    public ResponseEntity<Client> updateClient(@RequestBody Client client){
-        return new ResponseEntity<>(clientService.saveClient(client),HttpStatus.OK);
+    @PostMapping("update/{id}")
+    public ResponseEntity<Client> updateReservation(@PathVariable Integer id, @RequestBody Client client) {
+        if (clientService.findById(id) != null) {
+            return new ResponseEntity<>(clientService.saveClient(client), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("{id}")
@@ -39,8 +44,9 @@ public class ClientController {
         return new ResponseEntity<>(clientService.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("delete")
-    public ResponseEntity<?> deleteClient(@RequestBody Client client){
+    @DeleteMapping("{id}/delete")
+    public ResponseEntity<?> deleteClient(@PathVariable Integer id){
+        Client client=clientService.findById(id);
         if(clientService.findById(client.getId())!=null) {
             List<Reservation> reservations = reservationService.findReservationsByClient(client);
             reservationService.deleteReservations(reservations);
@@ -50,7 +56,7 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("{id}/reservations")
+    @GetMapping("reservations/{id}")
     public ResponseEntity<List<Reservation>> getAllReservations(@PathVariable Integer id){
         return new ResponseEntity<>(clientService.findById(id).getReservations(),HttpStatus.OK);
     }

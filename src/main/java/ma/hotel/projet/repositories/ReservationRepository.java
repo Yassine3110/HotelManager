@@ -2,6 +2,7 @@ package ma.hotel.projet.repositories;
 
 import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.entities.Reservation;
+import ma.hotel.projet.entities.Room;
 import ma.hotel.projet.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,4 +26,6 @@ public interface ReservationRepository extends JpaRepository<Reservation,Integer
     List<Reservation> findByUser(User user);
 
     List<Reservation> findByFacture(Reservation reservation);
+
+    List<Reservation> findByRoom(Room room);
 }

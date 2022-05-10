@@ -30,11 +30,20 @@ public class Reservation implements Serializable {
     @JsonBackReference
     private User user;
 
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "room_id")
     //@JsonBackReference
     @JsonIgnore
     private Room room;
+=======
+    @ManyToMany
+    @JoinTable(
+            name = "room_reservation",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id"))
+    private List<Room> rooms;
+>>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "client_id",nullable = false)
@@ -58,6 +67,8 @@ public class Reservation implements Serializable {
             this.getServices().add(service);
 
     }
+
+
 
 
 

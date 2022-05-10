@@ -3,13 +3,16 @@ package ma.hotel.projet.services;
 import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.entities.Facture;
 import ma.hotel.projet.entities.Reservation;
+import ma.hotel.projet.entities.Room;
 import ma.hotel.projet.repositories.ReservationRepository;
+import ma.hotel.projet.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,11 @@ import java.util.Optional;
 public class ReservationService {
 
     private Double Pt;
+
+    private Integer comparaison;
+
+    @Autowired
+    private RoomRepository roomRepository;
     @Autowired
     private ReservationRepository reservationRepository;
 
@@ -75,12 +83,23 @@ public class ReservationService {
     public Double calculPt(Reservation reservation){
         Pt=0.;
         Reservation r=reservationRepository.findById(reservation.getId()).get();
-        Pt+=r.getRoom().getPrice();
+        List<Room> rooms = r.getRooms();
+        rooms.forEach(y->{
+            Pt+=y.getPrice();
+        });
         List<ma.hotel.projet.entities.Service> services=reservationRepository.findById(reservation.getId()).get().getServices();
         services.forEach(x->{
             Pt+=x.getPrice();
         });
         return Pt;
+    }
+
+    public void assignRoomToReservation(Room room,Reservation reservation){
+        Reservation res=reservationRepository.findById(reservation.getId()).get();
+        Room r=roomRepository.findById(room.getId()).get();
+        res.getRooms().add(r);
+        reservationRepository.save(res);
+
     }
 
     public void updateFactureReservation(Reservation reservation){
@@ -89,6 +108,19 @@ public class ReservationService {
         //factureService.saveFacture(facture);
     }
 
+    public List<Room> findRoomsByReservation(Reservation reservation){
+        return reservationRepository.findById(reservation.getId()).get().getRooms();
+    }
+
+    public List<Reservation> findReservationByRoom(Room room){
+        List<Reservation> reservations =reservationRepository.findByRoom(room);
+        List<Reservation> filtredReservations = new ArrayList<>();
+
+        reservations.stream().filter(u->{
+            u.getDate().compareTo(LocalDate.now())>=0;
+        });
+        return  filtredReservations;
+    }
 
 
 

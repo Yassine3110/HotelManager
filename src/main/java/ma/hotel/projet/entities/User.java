@@ -34,8 +34,8 @@ public class User implements Serializable{
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user")
-    //@JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference
+    //@JsonIgnore
     private List<Reservation> reservations;
 
 

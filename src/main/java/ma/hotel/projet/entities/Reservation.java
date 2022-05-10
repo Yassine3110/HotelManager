@@ -27,7 +27,7 @@ public class Reservation implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "user_id",nullable = false)
-    //@JsonBackReference
+    @JsonBackReference
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -31,10 +31,14 @@ public class Reservation implements Serializable {
     private User user;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
+=======
+    @ManyToOne(fetch = FetchType.EAGER)
+>>>>>>> main
     @JoinColumn(name = "room_id")
-    //@JsonBackReference
-    @JsonIgnore
+    @JsonBackReference
+    //@JsonIgnore
     private Room room;
 =======
     @ManyToMany

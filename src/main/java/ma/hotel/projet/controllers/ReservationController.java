@@ -11,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 =======
 import org.springframework.web.bind.annotation.*;
 >>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> main
 
 import java.util.List;
 
@@ -37,9 +41,9 @@ public class ReservationController {
     }
 
 
-    @GetMapping("room")
-    public ResponseEntity<Room> findRoomByReservation(Reservation reservation){
-        Room room = reservationService.findById(reservation.getId()).getRoom();
+    @GetMapping("{id}/room")
+    public ResponseEntity<Room> findRoomByReservationId(@PathVariable Integer id){
+        Room room = reservationService.findById(id).getRoom();
         return new ResponseEntity<>(room, HttpStatus.OK);
 =======
     public ResponseEntity<List<Reservation>> getAllReservations() {
@@ -78,6 +82,14 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findRoomsByReservation(reservation),HttpStatus.OK);
 >>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
     }
+
+    @DeleteMapping("{id}/delete")
+    public ResponseEntity<?> deleteReservation(@PathVariable Integer id){
+        reservationService.deleteReservation(reservationService.findById(id));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 
 

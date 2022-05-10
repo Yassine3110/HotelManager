@@ -1,6 +1,7 @@
 package ma.hotel.projet.controllers;
 
 
+import ma.hotel.projet.entities.Reservation;
 import ma.hotel.projet.entities.Role;
 import ma.hotel.projet.entities.User;
 import ma.hotel.projet.services.RoleService;
@@ -46,7 +47,7 @@ public class UserController {
         return new ResponseEntity<>(r,HttpStatus.OK);
     }
 
-    @GetMapping("all")
+    @GetMapping("role/all")
     public ResponseEntity<List<Role>> findAllRoles(){
         List<Role> roles=roleService.findAll();
         return new ResponseEntity<>(roles,HttpStatus.OK);
@@ -58,4 +59,10 @@ public class UserController {
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
+
+    @GetMapping("user/reservations")
+    public ResponseEntity<List<Reservation>> getReservationsByUser(@RequestBody User user){
+        List<Reservation> reservations = userService.findById(user.getId()).getReservations();
+        return new ResponseEntity<>(reservations,HttpStatus.OK);
+    }
 }

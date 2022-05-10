@@ -7,9 +7,7 @@ import ma.hotel.projet.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,11 +23,19 @@ public class ReservationController {
     }
 
 
-    @GetMapping("room")
-    public ResponseEntity<Room> findRoomByReservation(Reservation reservation){
-        Room room = reservationService.findById(reservation.getId()).getRoom();
+    @GetMapping("{id}/room")
+    public ResponseEntity<Room> findRoomByReservationId(@PathVariable Integer id){
+        Room room = reservationService.findById(id).getRoom();
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}/delete")
+    public ResponseEntity<?> deleteReservation(@PathVariable Integer id){
+        reservationService.deleteReservation(reservationService.findById(id));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 
 

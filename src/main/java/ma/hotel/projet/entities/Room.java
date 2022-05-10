@@ -34,7 +34,7 @@ public class Room implements Serializable {
 
     @OneToMany(mappedBy = "room")
     @JsonManagedReference
-    @JsonIgnore
+    //@JsonIgnore
     private List<Reservation> reservations;
 
 

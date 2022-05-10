@@ -30,10 +30,10 @@ public class Reservation implements Serializable {
     @JsonBackReference
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
-    //@JsonBackReference
-    @JsonIgnore
+    @JsonBackReference
+    //@JsonIgnore
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)

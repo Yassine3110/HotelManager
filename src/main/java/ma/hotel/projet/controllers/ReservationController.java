@@ -63,7 +63,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> getReservationById(@PathVariable Integer id){
         return  new ResponseEntity<>(reservationService.findById(id),HttpStatus.OK);
     }
-    
+
 
     @GetMapping("/{id}/rooms")
     public ResponseEntity<List<Room>> findRoomsByReservation(@PathVariable Integer id){

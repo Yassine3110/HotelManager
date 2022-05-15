@@ -1,9 +1,6 @@
 package ma.hotel.projet.controllers;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
 import ma.hotel.projet.entities.Reservation;
 import ma.hotel.projet.entities.Room;
 import ma.hotel.projet.services.ReservationService;
@@ -12,17 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-=======
+
 import org.springframework.web.bind.annotation.*;
->>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
-=======
-import org.springframework.web.bind.annotation.*;
->>>>>>> main
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,28 +25,22 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("api/reservation")
 public class ReservationController {
-<<<<<<< HEAD
-=======
-
->>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
     @Autowired
     private ReservationService reservationService;
 
     @Autowired
     private RoomService roomService;
     @GetMapping("all")
-<<<<<<< HEAD
     public ResponseEntity<List<Reservation>> findAll(){
         return new ResponseEntity<List<Reservation>>(reservationService.findAll(), OK);
     }
 
 
     @GetMapping("{id}/room")
-    public ResponseEntity<Room> findRoomByReservationId(@PathVariable Integer id){
+    public ResponseEntity<Room> findRoomByReservationId(@PathVariable Integer id) {
         Room room = reservationService.findById(id).getRoom();
-<<<<<<< HEAD
         return new ResponseEntity<>(room, HttpStatus.OK);
-=======
+    }
     public ResponseEntity<List<Reservation>> getAllReservations() {
         return new ResponseEntity<>(reservationService.findAll(), HttpStatus.OK);
     }
@@ -78,22 +63,13 @@ public class ReservationController {
     public ResponseEntity<Reservation> getReservationById(@PathVariable Integer id){
         return  new ResponseEntity<>(reservationService.findById(id),HttpStatus.OK);
     }
-
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity<?> deleteReservation(@PathVariable Integer id){
-        Reservation reservation=reservationService.findById(id);
-        reservationService.deleteReservation(reservation);
-        return  new ResponseEntity<>(HttpStatus.OK);
-    }
+    
 
     @GetMapping("/{id}/rooms")
     public ResponseEntity<List<Room>> findRoomsByReservation(@PathVariable Integer id){
         Reservation reservation=reservationService.findById(id);
         return new ResponseEntity<>(reservationService.findRoomsByReservation(reservation),HttpStatus.OK);
->>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
-=======
-        return new ResponseEntity<>(room, OK);
->>>>>>> main
+
     }
 
     @DeleteMapping("{id}/delete")
@@ -120,8 +96,5 @@ public class ReservationController {
 
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
+

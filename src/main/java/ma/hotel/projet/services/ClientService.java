@@ -2,11 +2,14 @@ package ma.hotel.projet.services;
 
 import ma.hotel.projet.entities.Client;
 import ma.hotel.projet.entities.Reservation;
+import ma.hotel.projet.entities.Room;
 import ma.hotel.projet.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -35,6 +38,8 @@ public class ClientService {
         Client c=clientRepository.findById(client.getId()).get();
         c.addReservationToClient(reservation);
     }
+
+
 
 
 

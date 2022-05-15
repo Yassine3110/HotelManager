@@ -54,8 +54,13 @@ public class Reservation implements Serializable {
     private List<Service> services;
 
     public void addServiceToReservation(Service service){
-        if(!(this.getServices().contains(service)))
             this.getServices().add(service);
+    }
+
+    public void mapping(Reservation res){
+        this.setDate(res.getDate());
+        this.setTime(res.getTime());
+        this.setDureeSejour(res.getDureeSejour());
     }
 
 

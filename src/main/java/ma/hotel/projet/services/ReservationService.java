@@ -1,14 +1,15 @@
 package ma.hotel.projet.services;
 
-import ma.hotel.projet.entities.Client;
-import ma.hotel.projet.entities.Facture;
-import ma.hotel.projet.entities.Reservation;
-import ma.hotel.projet.entities.Room;
+import ma.hotel.projet.entities.*;
 import ma.hotel.projet.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.rmi.registry.LocateRegistry;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -24,6 +25,14 @@ public class ReservationService {
 
     @Autowired
     private FactureService factureService;
+
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ClientService clientService;
 
     public List<Reservation> findAll(){
         return reservationRepository.findAll();
@@ -89,6 +98,14 @@ public class ReservationService {
         factureService.updatePt(facture,calculPt(reservation));
         //factureService.saveFacture(facture);
     }
+
+    public void updateReservationClient(Integer idRes,Integer idRoom,Reservation res){
+        Reservation reservation=reservationRepository.findById(idRes).get();
+        Room room=roomService.findById(idRoom);
+        reservation.mapping(res);
+        reservationRepository.updateReservation(room,idRes);
+    }
+
 
 
 

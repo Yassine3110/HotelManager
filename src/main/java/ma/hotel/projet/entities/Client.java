@@ -37,6 +37,9 @@ public class Client implements Serializable {
     public void addReservationToClient(Reservation reservation){
         this.getReservations().add(reservation);
     }
+    public boolean findReservation(Reservation reservation){
+        return this.getReservations().contains(reservation);
+    }
 
 
 }

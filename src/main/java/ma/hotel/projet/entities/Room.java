@@ -37,8 +37,13 @@ public class Room implements Serializable {
     @JsonIgnore
 =======
     @OneToMany(mappedBy = "room")
+<<<<<<< HEAD
     @JsonManagedReference
     //@JsonIgnore
+>>>>>>> main
+=======
+    //@JsonManagedReference
+    @JsonIgnore
 >>>>>>> main
     private List<Reservation> reservations;
 

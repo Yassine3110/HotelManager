@@ -25,7 +25,7 @@ public class Reservation implements Serializable {
     private LocalTime time;
     private Integer dureeSejour;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "user_id",nullable = false)
     @JsonBackReference
     private User user;
@@ -37,7 +37,7 @@ public class Reservation implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
 >>>>>>> main
     @JoinColumn(name = "room_id")
-    @JsonBackReference
+    //@JsonBackReference
     //@JsonIgnore
     private Room room;
 =======
@@ -49,9 +49,9 @@ public class Reservation implements Serializable {
     private List<Room> rooms;
 >>>>>>> 31d932cd9bed5e50bb0d1b9eabb6f3bcda45d406
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "client_id",nullable = false)
-    @JsonBackReference
+    //@JsonBackReference
     private Client client;
 
     @OneToOne(cascade = CascadeType.ALL,optional = false)
@@ -67,9 +67,13 @@ public class Reservation implements Serializable {
     private List<Service> services;
 
     public void addServiceToReservation(Service service){
-        if(!(this.getServices().contains(service)))
             this.getServices().add(service);
+    }
 
+    public void mapping(Reservation res){
+        this.setDate(res.getDate());
+        this.setTime(res.getTime());
+        this.setDureeSejour(res.getDureeSejour());
     }
 
 
@@ -79,5 +83,8 @@ public class Reservation implements Serializable {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 }

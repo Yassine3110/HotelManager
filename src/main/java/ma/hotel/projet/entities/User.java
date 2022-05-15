@@ -33,9 +33,9 @@ public class User implements Serializable{
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    @JsonIgnore
+    //@JsonIgnore
     private List<Reservation> reservations;
 
 

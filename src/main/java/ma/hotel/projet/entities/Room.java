@@ -32,19 +32,10 @@ public class Room implements Serializable {
     //@MapsId
     private Type type;
 
-<<<<<<< HEAD
-    @ManyToMany(mappedBy = "rooms")
-    @JsonIgnore
-=======
+
     @OneToMany(mappedBy = "room")
-<<<<<<< HEAD
     @JsonManagedReference
     //@JsonIgnore
->>>>>>> main
-=======
-    //@JsonManagedReference
-    @JsonIgnore
->>>>>>> main
     private List<Reservation> reservations;
 
 

@@ -92,23 +92,21 @@ public class ReservationService {
     public Double calculPt(Reservation reservation){
         Pt=0.;
         Reservation r=reservationRepository.findById(reservation.getId()).get();
-        List<Room> rooms = r.getRooms();
-        rooms.forEach(y->{
-            Pt+=y.getPrice();
-        });
-        List<ma.hotel.projet.entities.Service> services=reservationRepository.findById(reservation.getId()).get().getServices();
+        Pt+=r.getRoom().getPrice();
+        List<ma.hotel.projet.entities.Service> services=r.getServices();
         services.forEach(x->{
             Pt+=x.getPrice();
         });
         return Pt;
     }
 
-    public void assignRoomToReservation(Room room,Reservation reservation){
-        Reservation res=reservationRepository.findById(reservation.getId()).get();
-        Room r=roomRepository.findById(room.getId()).get();
-        res.getRooms().add(r);
-        reservationRepository.save(res);
-
+    public void assignRoomToReservation(Room room,Reservation reservation) throws Exception{
+        Reservation res=reservationRepository.findById(reservation.getId()).orElseThrow(()->
+                new Exception("why god"));
+        Room r=roomRepository.findById(room.getId()).orElseThrow(()->
+                new Exception("why god"));;
+        res.setRoom(r);
+        //reservationRepository.save(res);
     }
 
     public void updateFactureReservation(Reservation reservation){
@@ -116,22 +114,6 @@ public class ReservationService {
         factureService.updatePt(facture,calculPt(reservation));
         //factureService.saveFacture(facture);
     }
-
-<<<<<<< HEAD
-    public List<Room> findRoomsByReservation(Reservation reservation){
-        return reservationRepository.findById(reservation.getId()).get().getRooms();
-    }
-
-    public List<Reservation> findReservationByRoom(Room room){
-        List<Reservation> reservations =reservationRepository.findByRoom(room);
-        List<Reservation> filtredReservations = new ArrayList<>();
-
-        reservations.stream().filter(u->{
-            u.getDate().compareTo(LocalDate.now())>=0;
-        });
-        return  filtredReservations;
-    }
-=======
     public void updateReservationClient(Integer idRes,Integer idRoom,Reservation res){
         Reservation reservation=reservationRepository.findById(idRes).get();
         Room room=roomService.findById(idRoom);
@@ -140,7 +122,6 @@ public class ReservationService {
     }
 
 
->>>>>>> main
 
 
 

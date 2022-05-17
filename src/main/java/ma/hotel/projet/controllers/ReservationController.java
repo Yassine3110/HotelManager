@@ -3,6 +3,7 @@ package ma.hotel.projet.controllers;
 
 import ma.hotel.projet.entities.Reservation;
 import ma.hotel.projet.entities.Room;
+import ma.hotel.projet.entities.User;
 import ma.hotel.projet.services.ReservationService;
 import ma.hotel.projet.services.RoomService;
 import ma.hotel.projet.services.ServiceService;
@@ -45,9 +46,6 @@ public class ReservationController {
         Room room = reservationService.findById(id).getRoom();
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
-    public ResponseEntity<List<Reservation>> getAllReservations() {
-        return new ResponseEntity<>(reservationService.findAll(), HttpStatus.OK);
-    }
 
     @PostMapping("save")
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation) {
@@ -66,6 +64,10 @@ public class ReservationController {
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservationById(@PathVariable Integer id){
         return  new ResponseEntity<>(reservationService.findById(id),HttpStatus.OK);
+    }
+    @GetMapping("/user/reservations")
+    public ResponseEntity<List<Reservation>> getReservationsByUser(@RequestBody User user){
+        return  new ResponseEntity<>(reservationService.findReservationByUser(user),HttpStatus.OK);
     }
 
 

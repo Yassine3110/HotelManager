@@ -49,13 +49,10 @@ public class ReservationService {
         reservationRepository.deleteAll(reservations);
     }
 
-    public List<Reservation> findReservationByUser(Reservation reservation){
-        return reservationRepository.findByUser(reservation.getUser());
+    public List<Reservation> findReservationByUser(User user){
+        return reservationRepository.findByUser(user);
     }
 
-    public List<Reservation> findReservationByFacture(Reservation reservation){
-        return reservationRepository.findByFacture(reservation);
-    }
     public List<Reservation> findReservationsByDate(LocalDate date){
         return reservationRepository.findByDate(date);
     }

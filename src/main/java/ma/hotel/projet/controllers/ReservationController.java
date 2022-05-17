@@ -5,6 +5,7 @@ import ma.hotel.projet.entities.Reservation;
 import ma.hotel.projet.entities.Room;
 import ma.hotel.projet.services.ReservationService;
 import ma.hotel.projet.services.RoomService;
+import ma.hotel.projet.services.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,9 @@ public class ReservationController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private ServiceService serviceService;
     @GetMapping("all")
     public ResponseEntity<List<Reservation>> findAll(){
         return new ResponseEntity<List<Reservation>>(reservationService.findAll(), OK);
@@ -65,12 +69,6 @@ public class ReservationController {
     }
 
 
-    @GetMapping("/{id}/rooms")
-    public ResponseEntity<List<Room>> findRoomsByReservation(@PathVariable Integer id){
-        Reservation reservation=reservationService.findById(id);
-        return new ResponseEntity<>(reservationService.findRoomsByReservation(reservation),HttpStatus.OK);
-
-    }
 
     @DeleteMapping("{id}/delete")
     public ResponseEntity<?> deleteReservation(@PathVariable Integer id){
@@ -89,6 +87,13 @@ public class ReservationController {
     @GetMapping("{date}/reservations")
     public ResponseEntity<List<Reservation>> findReservationsByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
         return new ResponseEntity<>(reservationService.findReservationsByDate(date),OK);
+    }
+
+    @PostMapping("{idRes}/{idSer}/assignService")
+    public ResponseEntity<?> assignServiceToReservation(@PathVariable Integer idRes,@PathVariable Integer idSer){
+        reservationService.addService(reservationService.findById(idRes),serviceService.findServiceById(idSer));
+        reservationService.updateFactureReservation(reservationService.findById(idRes));
+        return new ResponseEntity<>(OK);
     }
 
 

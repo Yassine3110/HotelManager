@@ -2,20 +2,13 @@ package ma.hotel.projet.services;
 
 import ma.hotel.projet.entities.*;
 import ma.hotel.projet.repositories.ReservationRepository;
-import ma.hotel.projet.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.rmi.registry.LocateRegistry;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,8 +18,6 @@ public class ReservationService {
 
     private Integer comparaison;
 
-    @Autowired
-    private RoomRepository roomRepository;
     @Autowired
     private ReservationRepository reservationRepository;
 
@@ -83,6 +74,7 @@ public class ReservationService {
         return reservationRepository.findByDureeSejour(duree);
     }
 
+
     public void addService(Reservation reservation, ma.hotel.projet.entities.Service service){
         Reservation r=reservationRepository.findById(reservation.getId()).get();
         r.addServiceToReservation(service);
@@ -103,8 +95,7 @@ public class ReservationService {
     public void assignRoomToReservation(Room room,Reservation reservation) throws Exception{
         Reservation res=reservationRepository.findById(reservation.getId()).orElseThrow(()->
                 new Exception("why god"));
-        Room r=roomRepository.findById(room.getId()).orElseThrow(()->
-                new Exception("why god"));;
+        Room r=roomService.findById(room.getId());
         res.setRoom(r);
         //reservationRepository.save(res);
     }
@@ -120,12 +111,6 @@ public class ReservationService {
         reservation.mapping(res);
         reservationRepository.updateReservation(room,idRes);
     }
-
-
-
-
-
-
 
 
 }

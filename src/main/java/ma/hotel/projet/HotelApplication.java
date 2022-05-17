@@ -109,7 +109,7 @@ public class HotelApplication implements CommandLineRunner{
 
 		service.addService(service1);
 
-		Reservation reservation=new Reservation(null,LocalDate.of(2022,8,13),LocalTime.of(10,00),10,u1,new ArrayList<Room>(),c1,new Facture(),new ArrayList<Service>());
+		Reservation reservation=new Reservation(null,LocalDate.of(2022,8,13),LocalTime.of(10,00),10,u1,r1,c1,new Facture(),new ArrayList<Service>());
 		reservationService.saveReservation(reservation);
 
 		reservationService.addService(reservation,service1);

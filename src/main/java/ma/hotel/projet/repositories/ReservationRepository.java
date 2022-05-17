@@ -30,13 +30,12 @@ public interface ReservationRepository extends JpaRepository<Reservation,Integer
     List<Reservation> findByUser(User user);
 
     List<Reservation> findByFacture(Reservation reservation);
-<<<<<<< HEAD
 
-    List<Reservation> findByRoom(Room room);
-=======
+    Reservation findByRoom(Room room);
+
     @Modifying
     @Transactional
     @Query("update Reservation r set r.room=:room where r.id = :id")
     public void updateReservation(@Param(value = "room") Room room,@Param(value = "id") Integer id);
->>>>>>> main
+
 }

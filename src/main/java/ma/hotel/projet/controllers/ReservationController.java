@@ -47,6 +47,11 @@ public class ReservationController {
 
     @PostMapping("save")
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation) {
+        Room room = roomService.findById(reservation.getRoom().getId());
+        if(room.getAvailability()==true){
+            reservation.setRoom(room);
+            roomService.findById(reservation.getRoom().getId()).setAvailability(false);
+        }
         return new ResponseEntity<>(reservationService.saveReservation(reservation), HttpStatus.CREATED);
     }
 

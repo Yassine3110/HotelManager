@@ -1,9 +1,6 @@
 package ma.hotel.projet.controllers;
 
-import ma.hotel.projet.entities.Client;
-import ma.hotel.projet.entities.Facture;
-import ma.hotel.projet.entities.Reservation;
-import ma.hotel.projet.entities.Service;
+import ma.hotel.projet.entities.*;
 import ma.hotel.projet.services.ClientService;
 import ma.hotel.projet.services.ReservationService;
 import ma.hotel.projet.services.RoomService;
@@ -81,12 +78,15 @@ public class ClientController {
     @PostMapping("{idUser}/{idClient}/{idRoom}/addReservation")
     public ResponseEntity<?> addReservationToClient(@PathVariable Integer idUser,@PathVariable Integer idClient,@PathVariable Integer idRoom,@RequestBody Reservation reservation){
         Client client= clientService.findById(idClient);
+        Room room = roomService.findById(idRoom);
+        if(room.getAvailability()==true) reservation.setRoom(room);
         reservation.setClient(client);
         reservation.setUser(userService.findById(idUser));
         reservation.setFacture(new Facture());
-        reservation.setRoom(roomService.findById(idRoom));
+        roomService.findById(reservation.getRoom().getId()).setAvailability(false);
         reservation.setServices(new ArrayList<Service>());
         clientService.addReservationToClient(client,reservation);
+        reservationService.updateFactureReservation(reservationService.findById(reservation.getId()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

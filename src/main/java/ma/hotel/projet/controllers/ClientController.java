@@ -51,7 +51,7 @@ public class ClientController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Integer id){
+    public ResponseEntity<Client> findClientById(@PathVariable Integer id){
         return new ResponseEntity<>(clientService.findById(id), HttpStatus.OK);
     }
 
@@ -71,6 +71,12 @@ public class ClientController {
     public ResponseEntity<List<Reservation>> getAllReservations(@PathVariable Integer id){
         return new ResponseEntity<>(clientService.findById(id).getReservations(),HttpStatus.OK);
     }
+
+    @GetMapping("cin/{cin}")
+    public ResponseEntity<Client> findClientByCin(@PathVariable String cin){
+        return new ResponseEntity<>(clientService.findByCin(cin),HttpStatus.OK);
+    }
+
 
     @PostMapping("{idUser}/{idClient}/{idRoom}/addReservation")
     public ResponseEntity<?> addReservationToClient(@PathVariable Integer idUser,@PathVariable Integer idClient,@PathVariable Integer idRoom,@RequestBody Reservation reservation){

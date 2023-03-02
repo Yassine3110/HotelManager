@@ -38,6 +38,9 @@ public class ClientService {
         Client c=clientRepository.findById(client.getId()).get();
         c.addReservationToClient(reservation);
     }
+    public String bonjour() {
+    	return "b";
+    }
 
 
 
